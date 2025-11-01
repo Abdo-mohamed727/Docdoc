@@ -1,4 +1,4 @@
-import 'package:docdoc/Core/Theming/app_colors.dart';
+import 'package:docdoc/core/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AlreadyHaveAccountText extends StatelessWidget {

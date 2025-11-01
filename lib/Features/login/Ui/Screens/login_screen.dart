@@ -1,10 +1,15 @@
-import 'package:docdoc/Core/Helpers/spaces.dart';
-import 'package:docdoc/Core/Theming/app_colors.dart';
-import 'package:docdoc/Core/widgets/app_text_button.dart';
-import 'package:docdoc/Core/widgets/app_text_form_field.dart';
+import 'package:docdoc/core/helpers/spaces.dart';
+import 'package:docdoc/core/theming/app_colors.dart';
+import 'package:docdoc/core/widgets/app_text_button.dart';
+import 'package:docdoc/core/widgets/app_text_form_field.dart';
 import 'package:docdoc/Features/login/Ui/widgets/already_have_account_text.dart';
 import 'package:docdoc/Features/login/Ui/widgets/terms_and_conditions.dart';
+import 'package:docdoc/features/login/Data/models/login_request_body.dart';
+import 'package:docdoc/features/login/Logic/cubit/login_cubit.dart';
+import 'package:docdoc/features/login/Ui/widgets/email_and_password.dart';
+import 'package:docdoc/features/login/Ui/widgets/login_screen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,9 +19,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  bool isObscureText = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,49 +49,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               verticalSPaces(32),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    AppTextFormField(
-                      hinttext: 'Email',
-                      hintStyle: Theme.of(
-                        context,
-                      ).textTheme.titleMedium!.copyWith(color: AppColors.gray),
-                    ),
-                    verticalSPaces(18),
-                    AppTextFormField(
-                      hinttext: 'Password',
-                      isObscureText: isObscureText,
-                      hintStyle: Theme.of(
-                        context,
-                      ).textTheme.titleMedium!.copyWith(color: AppColors.gray),
-                      suffexIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isObscureText = !isObscureText;
-                          });
-                        },
-                        child: Icon(
-                          isObscureText
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                        ),
-                      ),
-                    ),
-                    verticalSPaces(16),
+              Column(
+                children: [
+                  EmailAndPassword(),
+                  verticalSPaces(16),
 
-                    Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Text(
-                        'Forgot Password?',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColors.primary,
-                        ),
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Text(
+                      'Forgot Password?',
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: AppColors.primary,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               verticalSPaces(32),
               AppTextButton(
@@ -97,17 +71,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 textStyle: Theme.of(
                   context,
                 ).textTheme.titleMedium!.copyWith(color: AppColors.white),
-                onPressed: () {},
+                onPressed: () {
+                  validateThenDoLogin(context);
+                },
               ),
               verticalSPaces(18),
               TermsAndConditionsText(),
 
               verticalSPaces(60),
               AlreadyHaveAccountText(),
+              LoginScreenCubit(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void validateThenDoLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginState();
+    }
   }
 }

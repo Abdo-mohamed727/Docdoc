@@ -1,4 +1,4 @@
-import 'package:docdoc/Core/Theming/app_colors.dart';
+import 'package:docdoc/core/theming/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -11,6 +11,8 @@ class AppTextFormField extends StatelessWidget {
   final bool? isObscureText;
   final Widget? suffexIcon;
   final EdgeInsetsGeometry? contentpadding;
+  final Function(String?) validation;
+  final TextEditingController? controller;
 
   const AppTextFormField({
     super.key,
@@ -22,11 +24,14 @@ class AppTextFormField extends StatelessWidget {
     this.isObscureText,
     this.suffexIcon,
     this.contentpadding,
+    required this.validation,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         contentPadding:
             contentpadding ??
@@ -40,6 +45,12 @@ class AppTextFormField extends StatelessWidget {
           borderSide: BorderSide(color: AppColors.ligterGray),
           borderRadius: BorderRadius.circular(16),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red, width: 1.3),
+        ),
         hintText: hinttext,
         hintStyle: hintStyle,
         fillColor: AppColors.morelightGray,
@@ -47,6 +58,9 @@ class AppTextFormField extends StatelessWidget {
         suffixIcon: suffexIcon,
       ),
       obscureText: isObscureText ?? false,
+      validator: (value) {
+        return validation(value);
+      },
     );
   }
 }
