@@ -13,13 +13,13 @@ class AlreadyHaveAccountText extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: 'Don\'t have an account?',
+            text: 'Already have an account?',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           TextSpan(
-            text: ' Sign Up',
+            text: ' LoginIn',
             recognizer: TapGestureRecognizer()..onTap=(){
-              Navigator.of(context).pushReplacementNamed(AppRoutes.signUppage);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.loginpage);
             },
             style: Theme.of(
               context,

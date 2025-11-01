@@ -1,10 +1,8 @@
 import 'package:docdoc/core/helpers/spaces.dart';
 import 'package:docdoc/core/theming/app_colors.dart';
 import 'package:docdoc/core/widgets/app_text_button.dart';
-import 'package:docdoc/core/widgets/app_text_form_field.dart';
 import 'package:docdoc/Features/login/Ui/widgets/already_have_account_text.dart';
 import 'package:docdoc/Features/login/Ui/widgets/terms_and_conditions.dart';
-import 'package:docdoc/features/login/Data/models/login_request_body.dart';
 import 'package:docdoc/features/login/Logic/cubit/login_cubit.dart';
 import 'package:docdoc/features/login/Ui/widgets/email_and_password.dart';
 import 'package:docdoc/features/login/Ui/widgets/login_screen_cubit.dart';
@@ -25,63 +23,65 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: SingleChildScrollView(
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: [
-                  Text(
-                    'Welcome Back',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'We\'re excited to have you back, can\'t wait to \n see what you\'ve been up to since you last \n logged in.',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge!.copyWith(color: AppColors.gray),
-                  ),
-                ],
-              ),
-
-              verticalSPaces(32),
-              Column(
-                children: [
-                  EmailAndPassword(),
-                  verticalSPaces(16),
-
-                  Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: Text(
-                      'Forgot Password?',
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  children: [
+                    Text(
+                      'Welcome Back',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              verticalSPaces(32),
-              AppTextButton(
-                buttonText: 'LoginIn',
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.titleMedium!.copyWith(color: AppColors.white),
-                onPressed: () {
-                  validateThenDoLogin(context);
-                },
-              ),
-              verticalSPaces(18),
-              TermsAndConditionsText(),
+                    Text(
+                      'We\'re excited to have you back, can\'t wait to \n see what you\'ve been up to since you last \n logged in.',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.copyWith(color: AppColors.gray),
+                    ),
+                  ],
+                ),
 
-              verticalSPaces(60),
-              AlreadyHaveAccountText(),
-              LoginScreenCubit(),
-            ],
+                verticalSPaces(32),
+                Column(
+                  children: [
+                    EmailAndPassword(),
+                    verticalSPaces(16),
+
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(
+                        'Forgot Password?',
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSPaces(32),
+                AppTextButton(
+                  buttonText: 'LoginIn',
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.titleMedium!.copyWith(color: AppColors.white),
+                  onPressed: () {
+                    validateThenDoLogin(context);
+                  },
+                ),
+                verticalSPaces(18),
+                TermsAndConditionsText(),
+
+                verticalSPaces(60),
+                AlreadyHaveAccountText(),
+                LoginScreenCubit(),
+              ],
+            ),
           ),
         ),
       ),
