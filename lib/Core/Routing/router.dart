@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   // ignore: non_constant_identifier_names
-  static Route<dynamic> OngenerateRoute(RouteSettings settings) {
+    Route<dynamic> OngenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.onboardingScreen:
         return MaterialPageRoute(
