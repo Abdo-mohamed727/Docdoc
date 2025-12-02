@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155292404230",
+    "project_id": "docdoc-50b33",
+    "storage_bucket": "docdoc-50b33.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155292404230:android:7ff3b9168122cfba585187",
+        "android_client_info": {
+          "package_name": "com.example.docdoc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLFNlDMhczLrDXg7SxP0F0gnJaPQWteHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
